@@ -63,3 +63,10 @@ security fixes only and will reach end of life in November 2021.
 Good luck.
 
 
+## License
+
+All contents of this repository are licensed under BSD (see LICENSE.md).
+The exceptions are vendored scripts, which will contain all relevent copyright
+information internally.
+
+
