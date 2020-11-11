@@ -9,7 +9,7 @@ In `nginx/moinmoin.conf`, configure the server name (`s/example.com/your_domain_
 
 In `moinmoin/wikiconfig.py`, configure the wiki name (`s/Untitled Wiki/your_wiki_name_here`). Also configure the security section to suit your needs.
 
-{{{
+```python
     # Security ----------------------------------------------------------
 
     # This is checked by some rather critical and potentially harmful actions,
@@ -43,7 +43,7 @@ In `moinmoin/wikiconfig.py`, configure the wiki name (`s/Untitled Wiki/your_wiki
     # Link spam protection for public wikis (Uncomment to enable)
     # Needs a reliable internet connection.
     #from MoinMoin.security.antispam import SecurityPolicy
-}}}
+```
 
 The web server will be accessible on port 8080.
 
