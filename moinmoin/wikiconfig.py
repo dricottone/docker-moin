@@ -110,12 +110,12 @@ class Config(multiconfig.DefaultConfig):
 
     # This is the default ACL that applies to pages without an ACL.
     # Adapt it to your needs, consider using an EditorGroup.
-    #acl_rights_default = u"Trusted:read,write,delete,revert Known:read All:read"
+    acl_rights_default = u"Trusted:read,write,delete,revert Known:read,write,delete,revert All:read"
 
     # The default (ENABLED) password_checker will keep users from choosing too
     # short or too easy passwords. If you don't like this and your site has
     # rather low security requirements, feel free to DISABLE the checker by:
-    #password_checker = None # None means "don't do any password strength checks"
+    password_checker = None
 
     # Link spam protection for public wikis (Uncomment to enable)
     # Needs a reliable internet connection.

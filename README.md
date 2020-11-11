@@ -2,6 +2,7 @@
 
 Deploy a moinmoin wiki using Docker.
 
+
 ## Setup
 
 In `nginx/moinmoin.conf`, configure the server name (`s/example.com/your_domain_name_here/g`).
@@ -45,4 +46,20 @@ In `moinmoin/wikiconfig.py`, configure the wiki name (`s/Untitled Wiki/your_wiki
 }}}
 
 The web server will be accessible on port 8080.
+
+
+## Security
+
+The stable release of moinmoin (v1.9) is written for python2. It is a complex
+(i.e. multiple vendored libraries), web-facing (i.e. interprets and executes
+user input) service. There have been high-risk CVE's as recently as November
+2020 (see CVE-2020-15275).
+
+Python 2.7 is unsupported as of January 2020.
+
+Alpine Linux v3.10 (the last to support critical python2 dependencies) receives
+security fixes only and will reach end of life in November 2021.
+
+Good luck.
+
 

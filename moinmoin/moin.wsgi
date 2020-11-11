@@ -29,7 +29,7 @@ import sys, os
 
 # a2) Path of the directory where wikiconfig.py / farmconfig.py is located.
 #     See wiki/config/... for some sample config files.
-#sys.path.insert(0, '/path/to/wikiconfigdir')
+sys.path.insert(0, '/var/moin/wiki')
 #sys.path.insert(0, '/path/to/farmconfigdir')
 
 # b) Configuration of moin's logging
