@@ -1,0 +1,24 @@
+version: '3.7'
+services:
+  web:
+    container_name: moin-nginx
+    image: nginx:stable-alpine
+    volumes:
+      - nginx:/etc/nginx/conf.d:ro
+    networks:
+      - backend
+    ports:
+      - 8080:80
+
+  app:
+    container_name: moin-uwsgi
+    build: .
+    volumes:
+      - /var/moin:/var/moin/wiki/data
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: moin-net
+
