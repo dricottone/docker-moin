@@ -8,6 +8,9 @@ COPY build/moin-1.9.11/setup.py /var/moin/install
 COPY build/moin-1.9.11/wiki /var/moin/wiki
 COPY moinmoin/* /var/moin/wiki/
 
+# rhtml plugin
+#COPY rhtml/rhtml.py /var/moin/wiki/data/plugin/parser/rhtml.py
+
 RUN find /var/moin -type d -exec chmod 775 {} \; \
 	&& find /var/moin -type f -exec chmod 664 {} \; \
 	&& chown www-data:www-data /var/moin -R
