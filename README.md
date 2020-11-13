@@ -27,9 +27,11 @@ In `moinmoin/wikiconfig.py`, configure the wiki name
 
 > If setting up a new wiki, a superuser must be created. The easiest method is
 > to use the `moin` CLI tool inside the container.
+>
 > ```bash
 > moin --config-dir=/var/moin/data --wiki-url=example.com account create --name=MyName --email=me@example.com --password=foobar
 > ```
+>
 > As a reminder, to access a shell inside a container, try
 > `docker exec -it <CONTAINER> /bin/sh`.
 
