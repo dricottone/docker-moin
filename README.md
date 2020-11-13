@@ -3,49 +3,43 @@
 Deploy a moinmoin wiki using Docker.
 
 
+## Structure
+
+This container will expose uWSGI on port 9000. The `nginx` folder contains a
+recommended web server configuration.
+
+The wiki is served from `/var/www/moin`. uWSGI runs in this directory as
+`www-data`.
+
+The `MoinMoin` source code is located at `/var/moin/install`, while the wiki
+data is located at `/var/moin/data`.
+
+
 ## Setup
 
-In `nginx/moinmoin.conf`, configure the server name (`s/example.com/your_domain_name_here/g`).
+`docker-compose.yml` is an example of how to deploy this container image. If
+you want to use it, be sure to configure the location of your local wiki data.
+It is currently configured to look at `/var/moin`.
 
-In `moinmoin/wikiconfig.py`, configure the wiki name (`s/Untitled Wiki/your_wiki_name_here`). Also configure the security section to suit your needs.
+In `moinmoin/wikiconfig.py`, configure the wiki name
+(`s/your_wiki_name_here/My Wiki/g`) as well as your own account name
+(`s/your_name_here/MyName/g`).
 
-```python
-    # Security ----------------------------------------------------------
+> If setting up a new wiki, a superuser must be created. The easiest method is
+> to use the `moin` CLI tool inside the container.
+> ```bash
+> moin --config-dir=/var/moin/data --wiki-url=example.com account create --name=MyName --email=me@example.com --password=foobar
+> ```
+> As a reminder, to access a shell inside a container, try
+> `docker exec -it <CONTAINER> /bin/sh`.
 
-    # This is checked by some rather critical and potentially harmful actions,
-    # like despam or PackageInstaller action:
-    superuser = [u"your_name_here"]
+Start the container and connect it a web browser. The `nginx` folder contains a
+recommended web server configuration, which would be accessible on port 8080.
+Just be sure to edit `nginx/moinmoin.conf` and set the domain name
+(`s/your_domain_here/example.com/g`).
 
-    # Some actions are by default only enabled for superusers and disabled
-    # for everybody else.
-    # 'newaccount' is one of these (used to let visitors create new accounts).
-    # You can create wiki users on the shell by using "moin account create".
-    # A superuser also can use "Settings" -> "Switch user" to create users.
-    # If you need the newaccount action for everybody (e.g. to create your
-    # very first [superuser] account), you can (temporarily) enable it:
-    #actions_superuser = multiconfig.DefaultConfig.actions_superuser[:]
-    #actions_superuser.remove('newaccount')
-
-    # IMPORTANT: grant yourself admin rights! replace YourName with
-    # your user name. See HelpOnAccessControlLists for more help.
-    # All acl_rights_xxx options must use unicode [Unicode]
-    acl_rights_before = u"your_name_here:read,write,delete,revert,admin"
-
-    # This is the default ACL that applies to pages without an ACL.
-    # Adapt it to your needs, consider using an EditorGroup.
-    acl_rights_default = u"Trusted:read,write,delete,revert Known:read,write,delete,revert All:read"
-
-    # The default (ENABLED) password_checker will keep users from choosing too
-    # short or too easy passwords. If you don't like this and your site has
-    # rather low security requirements, feel free to DISABLE the checker by:
-    #password_checker = None # None means "don't do any password strength checks"
-
-    # Link spam protection for public wikis (Uncomment to enable)
-    # Needs a reliable internet connection.
-    #from MoinMoin.security.antispam import SecurityPolicy
-```
-
-The web server will be accessible on port 8080.
+Open the wiki in a browser, specifically to the LanguageSetup page. Follow the
+on-screen instructions for installing system (i.e. underlay) pages.
 
 
 ## Security

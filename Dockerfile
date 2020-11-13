@@ -1,22 +1,24 @@
-
-# Alpine Linux removed uwsgi-python in v3.11
+# NOTE: Alpine Linux removed uwsgi-python in v3.11, so using v3.10 forever
 FROM alpine:3.10
 
 RUN apk add python uwsgi uwsgi-python
+RUN addgroup -S -g 82 www-data \
+    && adduser -S -u 82 -D -h /var/www -s /sbin/nologin www-data
 
-COPY build/moin-1.9.11/setup.py /var/moin/install
-COPY build/moin-1.9.11/wiki /var/moin/wiki
-COPY moinmoin/* /var/moin/wiki/
+# install `MoinMoin` python package
+RUN mkdir /var/moin
+COPY --chown=www-data:www-data build/moin-1.9.11 /var/moin/install
+RUN cd /var/moin/install && python setup.py install
 
-# rhtml plugin
-#COPY rhtml/rhtml.py /var/moin/wiki/data/plugin/parser/rhtml.py
-
-RUN find /var/moin -type d -exec chmod 775 {} \; \
-	&& find /var/moin -type f -exec chmod 664 {} \; \
-	&& chown www-data:www-data /var/moin -R
-RUN cd /var/moin/install && python setup.py install --record=install.log
+# setup wiki
+RUN mkdir /var/www/moin \
+    && cp /usr/share/moin/server /var/www/moin/ -r \
+    && cp /usr/share/moin/underlay /var/www/moin/ -r \
+    && chown www-data:www-data /var/www/moin -R
+COPY --chown=www-data:www-data moinmoin/* /var/www/moin/
 
 EXPOSE 9000
-WORKDIR /var/moin
-CMD /usr/sbin/uwsgi --ini /var/moin/uwsgi.ini
+WORKDIR /var/www/moin
+ENTRYPOINT ["/usr/sbin/uwsgi"]
+CMD ["--ini", "/var/www/moin/uwsgi.ini"]
 

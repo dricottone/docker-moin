@@ -48,7 +48,8 @@ class Config(multiconfig.DefaultConfig):
     instance_dir = wikiconfig_dir
 
     # Where your own wiki pages are (make regular backups of this directory):
-    data_dir = os.path.join(instance_dir, 'data', '') # path with trailing /
+    #data_dir = os.path.join(instance_dir, 'data', '') # path with trailing /
+    data_dir = '/var/moin/data/'
 
     # Where system and help pages are (you may exclude this from backup):
     data_underlay_dir = os.path.join(instance_dir, 'underlay', '') # path with trailing /
@@ -65,7 +66,7 @@ class Config(multiconfig.DefaultConfig):
     # Wiki identity ----------------------------------------------------
 
     # Site name, used by default for wiki name-logo [Unicode]
-    sitename = u'Untitled Wiki'
+    sitename = u'your_wiki_name_here'
 
     # Wiki logo. You can use an image, text or both. [Unicode]
     # For no logo or text, use '' - the default is to show the sitename.
@@ -75,7 +76,7 @@ class Config(multiconfig.DefaultConfig):
     # name of entry page / front page [Unicode], choose one of those:
 
     # a) if most wiki content is in a single language
-    #page_front_page = u"MyStartingPage"
+    page_front_page = u"MyStartingPage"
 
     # b) if wiki content is maintained in many languages
     #page_front_page = u"FrontPage"
@@ -91,7 +92,7 @@ class Config(multiconfig.DefaultConfig):
 
     # This is checked by some rather critical and potentially harmful actions,
     # like despam or PackageInstaller action:
-    #superuser = [u"YourName", ]
+    superuser = [u"your_name_here", ]
 
     # Some actions are by default only enabled for superusers and disabled
     # for everybody else.
@@ -106,7 +107,7 @@ class Config(multiconfig.DefaultConfig):
     # IMPORTANT: grant yourself admin rights! replace YourName with
     # your user name. See HelpOnAccessControlLists for more help.
     # All acl_rights_xxx options must use unicode [Unicode]
-    #acl_rights_before = u"YourName:read,write,delete,revert,admin"
+    acl_rights_before = u"your_name_here:read,write,delete,revert,admin"
 
     # This is the default ACL that applies to pages without an ACL.
     # Adapt it to your needs, consider using an EditorGroup.
